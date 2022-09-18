@@ -6,16 +6,19 @@ The database is maintained manually by security experts, and has not been update
 In this project I attempt to create an ML model for OS fingerprinting. <br/>
 I'll go over my process in the following sections.
 
-<br/><br/>
+<br/>
+
 ## Background on OS Fingerprinting
 [to be written]
 
 
-<br/><br/>
+<br/>
+
 ## Data Generation
 [to be written]
 
 
-<br/><br/>
+<br/>
+
 ## Model Training
 [to be written]
