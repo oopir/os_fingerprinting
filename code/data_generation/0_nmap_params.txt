@@ -1,0 +1,18 @@
+nmap:
+    nmap -iL only_ips_1.txt -n -p 80,443 -O --osscan-guess --min-hostgroup 100
+    -n : no reverse-dns resolution - speeds up scan!
+    -p 80,443 
+    -O : enable os detection
+    --osscan-guess : display guesses too
+    --min-hostgroup 100 : force concurrent scan
+    -oX nmap_output_file.xml : to be used ONLY from cli (not from Python script)
+
+
+
+
+
+
+
+
+
+
