@@ -20,9 +20,6 @@ In this project my models perform the passive version. To be precise, they only 
 Fingerprinting with TCP Flavor as a Novel Feature](https://www.duo.uio.no/bitstream/handle/10852/83660/Final_Desta_A_Deep_Learning_based_Universal_Tool_for_Operating_Systems_Fingerprinting_from_Passive_Measurements.pdf?sequence=2&isAllowed=y)
 <br/><br/>
 
-
-<br/>
-
 ## Data Generation
 I collected data on ~1,000,000 servers (chosen from a list of popular websites).<br/>
 
@@ -33,8 +30,8 @@ Nmap's output usually claims to be of 85%-90% certainty. It returns a list of gu
 <br/>
 
 ### *Feature Selection*
-I chose the featuresby reading [p0f's documentation](https://lcamtuf.coredump.cx/p0f3/README), the [paper mentioned before](https://www.duo.uio.no/bitstream/handle/10852/83660/Final_Desta_A_Deep_Learning_based_Universal_Tool_for_Operating_Systems_Fingerprinting_from_Passive_Measurements.pdf?sequence=2&isAllowed=y) and the [RFC on TCP/IP headers](https://datatracker.ietf.org/doc/html/rfc4413#section-4.3).<br/>
-Some of the most helpful fields are IP's Dont Fragment flag, IP's TTL value, TCP's MSS value, and TCP's options. 
+I chose the features by reading [p0f's documentation](https://lcamtuf.coredump.cx/p0f3/README), the [paper mentioned before](https://www.duo.uio.no/bitstream/handle/10852/83660/Final_Desta_A_Deep_Learning_based_Universal_Tool_for_Operating_Systems_Fingerprinting_from_Passive_Measurements.pdf?sequence=2&isAllowed=y) and the [RFC on TCP/IP headers](https://datatracker.ietf.org/doc/html/rfc4413#section-4.3).<br/>
+Some of the most helpful fields are IP's "Dont Fragment" flag, IP's TTL value, TCP's MSS value, and TCP's options. 
 <br/>
 
 ### *Data Collection*
@@ -42,10 +39,8 @@ The process of retrieving labels and the process of retrieving features were run
 
 Label retrieval: Python has a wrapper for Nmap, so automating the scan was relatively trivial. Another advantage of Nmap is a built-in ability to concurrently scan multiple hosts.<br/>
 
-Feature retrieval: to analyze a server's SYN-ACK message, I sent an HTTP request while sniffing the traffic with Scapy. I used multithreading to probe multiple hosts simultaneously.<br/>
+Feature retrieval: to analyze a server's SYN-ACK message, I sent an HTTP request while sniffing the communication with Scapy (a sniffer & packet manipulation tool). I used multithreading to probe multiple hosts simultaneously.<br/>
 (Initially I only sent a TCP SYN message, as it's simpler & faster than sending a full HTTP request. I noticed there was almost no variety in the response's TCP options, and suspected it may be due to the 'synthetic' nature of the probe. Switching to a full HTTP request resulted in the variety I was hoping for)
-
-
 <br/><br/>
 
 ## Model Comparison
@@ -61,4 +56,5 @@ The *Metric*: <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;As I wrote under *Establishing Ground Truth*, the metric that fit my data is top-2 accuracy. <br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Note that it does not hinder user experience too much: receiving 2 guesses isn't so bad when looking for exploits.<br/><br/>
 
-The *Results*: all 3 models reached a top-2 accuracy of around 85%. Graphs are available in the Model Training Notebook (under the code section).
+The *Results*: <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;All 3 models reached a top-2 accuracy of around 85%.    Graphs are available in the Model Training Notebook.
