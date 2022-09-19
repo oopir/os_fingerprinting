@@ -42,16 +42,16 @@ Label retrieval: Python has a wrapper for Nmap, so automating the scan was relat
 Feature retrieval: to analyze a server's SYN-ACK message, I sent an HTTP request while sniffing the communication with Scapy (a sniffer & packet manipulation tool). I used multithreading to probe multiple hosts simultaneously.<br/>
 (Initially I only sent a TCP SYN message, as it's simpler & faster than sending a full HTTP request. I noticed there was almost no variety in the response's TCP options, and suspected it may be due to the 'synthetic' nature of the probe. Switching to a full HTTP request resulted in the variety I was hoping for.)<br/>
 
-The operating systems that my scan found are:<br/>
+My scan found the following operating systems:<br/>
 <div align='center'>
 
-| OS            | # Samples |    |    |    | OS            | # Samples |
-| :-----------: |:---------:|----|----|----| :-----------: |:---------:|
-| Linux 5.X     | 12392     |    |    |    | OpenBSD 4.X   | 7041      |
-| Linux 4.X     | 110824    |    |    |    | FreeBSD 6.X   | 72072     |
-| Linux 3.X     | 88485     |    |    |    | embedded      | 76809     |
-| Linux 2.6.X   | 50978     |    |    |    | Windows 2016  | 6224      | 
-| Linux (Other) | 5634      |    |    |    | Windows 2012  | 9014      |
+| OS            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   # Samples &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| OS            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  # Samples &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| :-----------: |:------------------------------------------------------------------------:| :-----------: |:------------------------------------------------------------------------:|
+| Linux 5.X     | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   12392     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| OpenBSD 4.X   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  7041      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| Linux 4.X     | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   110824    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| FreeBSD 6.X   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  72072     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| Linux 3.X     | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   88485     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| embedded      | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  76809     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
+| Linux 2.6.X   | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   50978     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Windows 2016  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  6224      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 
+| Linux (Other) | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   5634      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Windows 2012  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  9014      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 
 </div>
 <br/><br/>
