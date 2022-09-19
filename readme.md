@@ -7,9 +7,9 @@ This project is an attempt to create an ML model for OS fingerprinting.
 
 ## Background on OS Fingerprinting
 There are 2 types of fingerprinting:<br/>
-- **Active** fingerprinting takes advantage of known security flaws: if there was a vulnerability in version X of the linux kernel, and it was fixed in version Y, then attempting to use the exploit will help us determine the server's kernel version ("exploit completed successfully" --> "server has version X"). Nmap is a common tool for passive fingerprinting.<br/>
+- **Active** fingerprinting takes advantage of known security flaws: if there was a vulnerability in version X of the linux kernel, and it was fixed in version Y, then attempting to use the exploit will help us determine the server's kernel version ("exploit completed successfully" --> "server has version X"). Nmap is a common tool for active fingerprinting.<br/>
 
-- **Passive** fingerprinting only analyzes packets of 'typical/legitimate' communication (mainly the TCP/IP headers). p0f is a common tool for active fingerprinting.<br/>
+- **Passive** fingerprinting only analyzes packets of 'typical/legitimate' communication (mainly the TCP/IP headers). p0f is a common tool for passive fingerprinting.<br/>
 
 The trade-off between the two methods: the active method has better accuracy, but its 'aggressive' nature makes it much easier to detect by firewalls.<br/>
 
