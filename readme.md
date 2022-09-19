@@ -1,27 +1,21 @@
 # Machine Learning Model for Passive OS Fingerprinting
 OS fingerprinting is the process of detecting a remote server's OS (and version) by communicating with it and analyzing its response. This process is important for security experts (and attackers), since knowing a server's OS reveals the server's security vulnerabilities. <br/>
 
-The most common  tools for fingerprinting (Nmap, NetworkMiner, Satori, p0f) rely on a database of "network signatures" (a signature can be thought of as the 'accent' or 'body language' of an OS). The database is maintained manually by security experts, and has not been updated in a long time (most tools rely on the database of p0f).<br/><br/>
+The most common  tools for fingerprinting (Nmap, NetworkMiner, Satori, p0f) rely on a database of "network signatures" (a signature can be thought of as the 'accent' or 'body language' of an OS). The database is maintained manually by security experts, and has not been updated in a long time (most tools rely on the database of p0f).<br/>
 
-This project is an attempt to create an ML model for OS fingerprinting. <br/>I trained 3 different models: SVM, Neural Network & Gradient Boosting.<br/>
-In the following sections I will write about my process:<br/> 
-- background research
-- data generation
-- model Comparison
-
-<br/>
+This project is an attempt to create an ML model for OS fingerprinting.
 
 ## Background on OS Fingerprinting
 There are 2 types of fingerprinting:<br/>
-- **Active** fingerprinting takes advantage of known security flaws: if there was a vulnerability in version X of the linux kernel, and it was fixed in version Y, then attempting to use the exploit will help us determine the server's kernel version ("exploit completed successfully" --> "server has version X"). Nmap is a common tool for active fingerprinting.<br/>
+- **Active** fingerprinting takes advantage of known security flaws: if there was a vulnerability in version X of the linux kernel, and it was fixed in version Y, then attempting to use the exploit will help us determine the server's kernel version ("exploit completed successfully" --> "server has version X"). Nmap is a common tool for passive fingerprinting.<br/>
 
 - **Passive** fingerprinting only analyzes packets of 'typical/legitimate' communication (mainly the TCP/IP headers). p0f is a common tool for active fingerprinting.<br/>
 
 The trade-off between the two methods: the active method has better accuracy, but its 'aggressive' nature makes it much easier to detect by firewalls.<br/>
 
-In this project I perform the passive version. To be precise, the models only look at the server's TCP SYN-ACK message, which makes the process extremely stealthy and fast.<br/>
+In this project my models perform the passive version. To be precise, they only look at the server's TCP SYN-ACK message, which makes the process extremely stealthy and fast.<br/>
 
-*Related Work*: I found a paper of the IEEE describing a similar project:<br/>
+*Related Work*: I found a paper written by IEEE researchers about a similar project:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[A Machine Learning-based Tool for Passive OS
 Fingerprinting with TCP Flavor as a Novel Feature](https://www.duo.uio.no/bitstream/handle/10852/83660/Final_Desta_A_Deep_Learning_based_Universal_Tool_for_Operating_Systems_Fingerprinting_from_Passive_Measurements.pdf?sequence=2&isAllowed=y)
 <br/><br/>
@@ -30,18 +24,18 @@ Fingerprinting with TCP Flavor as a Novel Feature](https://www.duo.uio.no/bitstr
 <br/>
 
 ## Data Generation
-I collected data on ~1,000,000 servers (chosen from a list of popular websites).<br/><br/>
+I collected data on ~1,000,000 servers (chosen from a list of popular websites).<br/>
 
 ### *Establishing Ground Truth*
 Since I don't have a datacenter's-worth of my own servers, finding labeled servers felt like a 'chicken and egg' problem. I decided to use Nmap's analysis as my ground truth: it may not be 100% accurate, but it does harness the percision of *active* fingerprinting, and it's an industry standard.<br/>
 
 Nmap's output usually claims to be of 85%-90% certainty. It returns a list of guesses in descending order of certainty. For this reason I aimed for 85%-90% accuracy with my models, and decided that the most relevant accuracy metric will be top-2 accuracy. 
-<br/><br/>
+<br/>
 
 ### *Feature Selection*
 I chose the featuresby reading [p0f's documentation](https://lcamtuf.coredump.cx/p0f3/README), the [paper mentioned before](https://www.duo.uio.no/bitstream/handle/10852/83660/Final_Desta_A_Deep_Learning_based_Universal_Tool_for_Operating_Systems_Fingerprinting_from_Passive_Measurements.pdf?sequence=2&isAllowed=y) and the [RFC on TCP/IP headers](https://datatracker.ietf.org/doc/html/rfc4413#section-4.3).<br/>
 Some of the most helpful fields are IP's Dont Fragment flag, IP's TTL value, TCP's MSS value, and TCP's options. 
-<br/><br/>
+<br/>
 
 ### *Data Collection*
 The process of retrieving labels and the process of retrieving features were run separately using different tools.<br/>
